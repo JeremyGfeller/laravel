@@ -21,7 +21,7 @@
                 Administration
             </div>
             <div class="links">
-                <form method="post" action="admin/delete">
+                <form method="post" action="/admin/delete">
                     @csrf
                     @foreach($data as $item)
                         <p>

@@ -16,5 +16,6 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', 'AdminController@index');
+
 Route::post('/admin/delete', 'AdminController@delete');
 Route::post('/admin/add', 'AdminController@add');
