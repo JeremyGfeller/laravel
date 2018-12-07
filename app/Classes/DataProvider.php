@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 
 class DataProvider
 {
+    static function store($data)
+    {
+        Storage::disk('local')->put('data.txt', serialize($data));
+    }
+
     static function getData()
     {
         return unserialize(Storage::disk('local')->get('data.txt'));
