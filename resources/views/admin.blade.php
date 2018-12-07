@@ -34,6 +34,14 @@
                     @csrf
                     Nom : <input type="text" name="nom"/>
                     <button name="ajouter">Ajouter</button>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <p style="background-color: red; color: #FFF;">{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
                 </form>
                 <br><br><a href="/">Home</a>
             </div>
