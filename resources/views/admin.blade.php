@@ -26,16 +26,13 @@
                     @foreach($data as $item)
                         <p>
                             {{$item->getName()}}
-                            <button name="id" value="{{$item->getId()}}">Supprimer</button>
+                            <button name="delid" value="{{$item->getId()}}">Supprimer</button>
                         </p>
                     @endforeach
                 </form>
                 <form method="post" action="/admin/add">
                     @csrf
-                    id : <input type="text" name="id"/>
-                    nom : <input type="text" name="nom"/>
-                    brique : <input type="text" name="nbBrique"/>
-                    couleur : <input type="text" name="couleur"/>
+                    Nom : <input type="text" name="nom"/>
                     <button name="ajouter">Ajouter</button>
                 </form>
                 <br><br><a href="/">Home</a>
