@@ -33,6 +33,10 @@ class AdminController extends Controller
 
     public function add(Request $add)
     {
+        $validateData = $add->validate([
+            'nom' => 'required|min:2|max:10'
+        ]);
+
         $things = DataProvider::getData();
         $nextId = 0;
         foreach($things as $thing)
