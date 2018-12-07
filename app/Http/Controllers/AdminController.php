@@ -18,7 +18,7 @@ class AdminController extends Controller
 
     public function delete(Request $delete)
     {
-        $id = $delete->id;
+        $id = $delete->delid;
         $things = DataProvider::getData();
         foreach($things as $key=>$thing)
         {
@@ -26,7 +26,7 @@ class AdminController extends Controller
             {
                 unset($things[$key]);
                 Storage::disk('local')->put('data.txt', serialize($things));
-                return view('admin')->with('data', $things);
+                return redirect('admin')->with('data', $things);
             }
         }
     }
@@ -34,9 +34,18 @@ class AdminController extends Controller
     public function add(Request $add)
     {
         $things = DataProvider::getData();
-        $newData = new Things($add->id, $add->nom, $add->nbBrique, $add->couleur);
+        $nextId = 0;
+        foreach($things as $thing)
+        {
+            if($thing->getId() > $nextId)
+            {
+                $nextId = $thing->getId();
+            }
+        }
+        $nextId++;
+        $newData = new Things($nextId, $add->nom);
         array_push($things, $newData);
-        Storage::disk('local')->put('data.txt', serialize($things));
-        return view('admin')->with('data', $things);
+        DataProvider::store($things);
+        return redirect('admin')->with('data', $things);
     }
 }
