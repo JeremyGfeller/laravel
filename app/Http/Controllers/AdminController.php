@@ -5,38 +5,32 @@ namespace App\Http\Controllers;
 use App\Classes\Character;
 use App\Classes\DataProvider;
 use App\Classes\Things;
+use App\Http\Requests\ThingsCaracter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
 
 class AdminController extends Controller
 {
     public function index() {
-        $things = DataProvider::getData();
-        Storage::disk('local')->put('data.txt', serialize($things));
-        return view('admin')->with('data', $things);
+        $things = DataProvider::getThings();
+        $colors = DB::select('select id, name from colors');
+        return view('admin')->with('data', $things)->with('colors', $colors);
     }
 
     public function delete(Request $delete)
     {
         $id = $delete->id;
-        $things = DataProvider::getData();
-        foreach($things as $key=>$thing)
-        {
-            if($thing->getId() == $id)
-            {
-                unset($things[$key]);
-                Storage::disk('local')->put('data.txt', serialize($things));
-                return view('admin')->with('data', $things);
-            }
-        }
+        $things = DataProvider::getThings();
+        DB::delete('delete from things where id = '.$id.'');
+        return redirect('admin')->with('data', $things);
     }
 
-    public function add(Request $add)
+    public function add(ThingsCaracter $add)
     {
-        $things = DataProvider::getData();
-        $newData = new Things($add->id, $add->nom, $add->nbBrique, $add->couleur);
-        array_push($things, $newData);
-        Storage::disk('local')->put('data.txt', serialize($things));
-        return view('admin')->with('data', $things);
+        $things = DataProvider::getThings();
+        DB::insert('INSERT INTO things (name, nbBricks, color_id) VALUES (?, ?, ?)', [$add->nom, $add->nbBrique, $add->selectColor]);
+        return redirect('admin')->with('data', $things);
     }
 }

@@ -25,17 +25,22 @@
                     @csrf
                     @foreach($data as $item)
                         <p>
-                            {{$item->getName()}}
-                            <button name="id" value="{{$item->getId()}}">Supprimer</button>
+                            {{$item->tname}}
+                            {{$item->nbBricks}}
+                            {{$item->cname}}
+                            <button name="id" value="{{$item->tid}}">Supprimer</button>
                         </p>
                     @endforeach
                 </form>
                 <form method="post" action="/admin/add">
                     @csrf
-                    id : <input type="text" name="id"/>
                     nom : <input type="text" name="nom"/>
-                    brique : <input type="text" name="nbBrique"/>
-                    couleur : <input type="text" name="couleur"/>
+                    NbBrique : <input type="text" name="nbBrique"/>
+                    <select name="selectColor">
+                        @foreach($colors as $color)
+                            <option value="{{$color->id}}">{{$color->name}}</option>
+                        @endforeach
+                    </select>
                     <button name="ajouter">Ajouter</button>
                 </form>
                 <br><br><a href="/">Home</a>
