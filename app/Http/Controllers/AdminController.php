@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\Character;
 use App\Classes\DataProvider;
 use App\Classes\Things;
+use App\Http\Requests\CharacterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,12 +32,8 @@ class AdminController extends Controller
         }
     }
 
-    public function add(Request $add)
+    public function add(CharacterRequest $add)
     {
-        $validateData = $add->validate([
-            'nom' => 'required|min:2|max:10'
-        ]);
-
         $things = DataProvider::getData();
         $nextId = 0;
         foreach($things as $thing)
