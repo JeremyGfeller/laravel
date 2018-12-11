@@ -23,16 +23,21 @@
             <div class="links">
                 <form method="post" action="/admin/delete">
                     @csrf
-                    @foreach($data as $item)
+
+                    @foreach($things as $item)
                         <p>
-                            {{$item->getName()}}
-                            <button name="delid" value="{{$item->getId()}}">Supprimer</button>
+                            {{$item->tname}}
+                            {{$item->nbBricks}}
+                            {{$item->cname}}
+                            <button name="delid" value="{{$item->id}}">Supprimer</button>
                         </p>
                     @endforeach
                 </form>
                 <form method="post" action="/admin/add">
                     @csrf
                     Nom : <input type="text" name="nom"/>
+                    Nombre de briques : <input type="text" name="nbBricks"/>
+                    Couleur : <input type="text" name="color"/>
                     <button name="ajouter">Ajouter</button>
 
                     @if ($errors->any())

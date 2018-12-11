@@ -9,6 +9,7 @@
 namespace App\Classes;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class DataProvider
 {
@@ -19,6 +20,7 @@ class DataProvider
 
     static function getData()
     {
-        return unserialize(Storage::disk('local')->get('data.txt'));
+        //return unserialize(Storage::disk('local')->get('data.txt'));
+        return DB::select('SELECT things.id, things.name as tname, things.nbBricks, colors.name as cname FROM things inner join colors on color_id = colors.id;');
     }
 }

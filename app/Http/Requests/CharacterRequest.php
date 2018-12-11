@@ -28,6 +28,11 @@ class CharacterRequest extends FormRequest
         ];
     }
 
+    /** 
+     * Change the value of the errors messages
+     * 
+     * @return array
+    */
     public function messages()
     {
         return [

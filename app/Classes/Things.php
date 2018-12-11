@@ -13,7 +13,8 @@ class Things
 {
     private $id;
     private $name;
-    private $surname;
+    private $nbBricks;
+    private $color;
 
     /**
      * Things constructor.
@@ -22,10 +23,12 @@ class Things
      * @param $nbBricks
      * @param $color
      */
-    public function __construct($id, $name)
+    public function __construct($id, $name, $nbBricks, $color)
     {
         $this->id = $id;
         $this->name = $name;
+        $this->nbBricks = $nbBricks;
+        $this->color = $color;
     }
 
     /**
@@ -37,18 +40,62 @@ class Things
     }
 
     /**
-     * @return mixed
-     */
+     * Get the value of color
+     */ 
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set the value of color
+     *
+     * @return  self
+     */ 
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nbBricks
+     */ 
+    public function getNbBricks()
+    {
+        return $this->nbBricks;
+    }
+
+    /**
+     * Set the value of nbBricks
+     *
+     * @return  self
+     */ 
+    public function setNbBricks($nbBricks)
+    {
+        $this->nbBricks = $nbBricks;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of name
+     */ 
     public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
-     */
-    public function setName($name): void
+     * Set the value of name
+     *
+     * @return  self
+     */ 
+    public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 }
