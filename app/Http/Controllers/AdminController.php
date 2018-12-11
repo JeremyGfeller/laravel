@@ -14,8 +14,8 @@ class AdminController extends Controller
 {
     public function index() {
         $things = DB::select('SELECT things.id, things.name as tname, things.nbBricks, colors.name as cname FROM things inner join colors on color_id = colors.id;');
-        //Storage::disk('local')->put('data.txt', serialize($things));
-        return view('admin')->with('things', $things);
+        $colors = DB::select('SELECT id, name FROM colors');
+        return view('admin')->with('things', $things)->with('colors', $colors);
     }
 
     public function delete(Request $delete)
@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function add(CharacterRequest $add)
     {
         $things = DataProvider::getData();
-        DB::insert('INSERT INTO things (name, nbBricks, color_id) VALUES (\'$add->nom\', \'$add->nbBricks\', \'3\');');
+        DB::insert('INSERT INTO things (name, nbBricks, color_id) VALUES (?, ?, ?)', [$add->nom, $add->nbBricks, $add->selectColor]);
         return redirect('admin')->with('data', $things);
     }
 }

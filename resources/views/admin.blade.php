@@ -37,7 +37,11 @@
                     @csrf
                     Nom : <input type="text" name="nom"/>
                     Nombre de briques : <input type="text" name="nbBricks"/>
-                    Couleur : <input type="text" name="color"/>
+                    <select name="selectColor">
+                        @foreach($colors as $color)
+                            <option value="{{$color->id}}">{{$color->name}}</option>
+                        @endforeach
+                    </select>
                     <button name="ajouter">Ajouter</button>
 
                     @if ($errors->any())
