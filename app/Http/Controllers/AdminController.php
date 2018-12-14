@@ -15,10 +15,7 @@ class AdminController extends Controller
     public function index() {
         // query builder -> random, recupération ID,
 
-        /*$things = DB::table('things')
-            ->select('things.id', 'things.name as tname', 'things.nbBricks', 'colors.name as cname')
-            ->join('colors', 'color_id', '=', 'colors.id')
-            ->get();*/
+
 
         $things = DB::select('SELECT things.id, things.name as tname, things.nbBricks, colors.name as cname FROM things inner join colors on color_id = colors.id;');
         $colors = DB::select('SELECT id, name FROM colors');
