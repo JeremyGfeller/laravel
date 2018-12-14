@@ -13,6 +13,13 @@ use DB;
 class AdminController extends Controller
 {
     public function index() {
+        // query builder -> random, recupération ID,
+
+        /*$things = DB::table('things')
+            ->select('things.id', 'things.name as tname', 'things.nbBricks', 'colors.name as cname')
+            ->join('colors', 'color_id', '=', 'colors.id')
+            ->get();*/
+
         $things = DB::select('SELECT things.id, things.name as tname, things.nbBricks, colors.name as cname FROM things inner join colors on color_id = colors.id;');
         $colors = DB::select('SELECT id, name FROM colors');
         return view('admin')->with('things', $things)->with('colors', $colors);
@@ -21,15 +28,16 @@ class AdminController extends Controller
     public function delete(Request $delete)
     {
         $id = $delete->delid;
+        DataProvider::delete($id);
+
         $things = DataProvider::getData();
-        DB::delete('DELETE FROM things.things WHERE id='.$id.'');
         return redirect('admin')->with('data', $things);
     }
 
     public function add(CharacterRequest $add)
     {
+        DataProvider::add($add->nom, $add->nbBricks, $add->selectColor);
         $things = DataProvider::getData();
-        DB::insert('INSERT INTO things (name, nbBricks, color_id) VALUES (?, ?, ?)', [$add->nom, $add->nbBricks, $add->selectColor]);
         return redirect('admin')->with('data', $things);
     }
 }

@@ -24,7 +24,8 @@ class CharacterRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom' => 'required|min:2|max:10|regex:/^[a-zA-Z]*$/'
+            'nom' => 'required|min:2|max:10|regex:/^[a-zA-Z]*$/',
+            'nbBricks' => 'required|regex:/^[0-9]*$/'
         ];
     }
 
@@ -36,10 +37,12 @@ class CharacterRequest extends FormRequest
     public function messages()
     {
         return [
-            'nom.required' => 'Le champs ne doit pas être vide',
+            'nom.required' => 'Le champ nom ne doit pas être vide',
             'nom.min'  => 'Il faut au moins 2 caractères',
             'nom.max'  => 'Il faut au minimum 10 caractères',
-            'nom.regex'  => 'Vous devez utiliser que des lettres'
+            'nom.regex'  => 'Vous devez utiliser que des lettres',
+            'nbBricks.required' => 'Le champ nombre de briques ne doit pas être vide',
+            'nbBricks.regex'  => 'Vous devez utiliser que des chiffres'
         ];
     }
 }
