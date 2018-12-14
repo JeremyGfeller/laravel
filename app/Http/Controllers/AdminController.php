@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Classes\Character;
 use App\Classes\DataProvider;
 use App\Classes\Things;
+use App\Color;
 use App\Http\Requests\CharacterRequest;
+use App\Thing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use DB;
@@ -15,7 +17,7 @@ class AdminController extends Controller
     public function index() {
         // query builder -> random, recupération ID,
 
-
+        return Color::all();
 
         $things = DB::select('SELECT things.id, things.name as tname, things.nbBricks, colors.name as cname FROM things inner join colors on color_id = colors.id;');
         $colors = DB::select('SELECT id, name FROM colors');
