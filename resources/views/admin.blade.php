@@ -26,18 +26,20 @@
 
                     @foreach($things as $item)
                         <p>
-                            {{$item->tname}}
+                            {{$item->name}}
                             {{$item->nbBricks}}
-                            {{$item->cname}}
+                            @foreach($item->color as $color)
+                                {{$color->name}}
+                            @endforeach
                             <button name="delid" value="{{$item->id}}">Supprimer</button>
                         </p>
                     @endforeach
                 </form>
                 <form method="post" action="/admin/add">
                     @csrf
-                    Nom : <input type="text" name="nom"/>
-                    Nombre de briques : <input type="text" name="nbBricks"/>
-                    <select name="selectColor">
+                    Nom : <input type="text" name="nom"/><br>
+                    Nombre de briques : <input type="text" name="nbBricks"/><br>
+                    <select name="selectColor[]" multiple>
                         @foreach($colors as $color)
                             <option value="{{$color->id}}">{{$color->name}}</option>
                         @endforeach

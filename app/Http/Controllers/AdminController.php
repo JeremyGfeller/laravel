@@ -14,29 +14,28 @@ use DB;
 
 class AdminController extends Controller
 {
-    public function index() {
-        // query builder -> random, recupération ID,
-
-        return Color::all();
-
-        $things = DB::select('SELECT things.id, things.name as tname, things.nbBricks, colors.name as cname FROM things inner join colors on color_id = colors.id;');
-        $colors = DB::select('SELECT id, name FROM colors');
+    public function index()
+    {
+        $things = Thing::all();
+        $colors = Color::all();
         return view('admin')->with('things', $things)->with('colors', $colors);
     }
 
     public function delete(Request $delete)
     {
-        $id = $delete->delid;
-        DataProvider::delete($id);
-
-        $things = DataProvider::getData();
-        return redirect('admin')->with('data', $things);
+        $things = Thing::find($delete->delid);
+        $things->delete();
+        $delete->session()->flash('flashmessage', "{$things->name} a bien été supprimée");
+        return redirect('admin');
     }
 
     public function add(CharacterRequest $add)
     {
-        DataProvider::add($add->nom, $add->nbBricks, $add->selectColor);
-        $things = DataProvider::getData();
-        return redirect('admin')->with('data', $things);
+        $things = new Thing();
+        $things->name = $add->nom;
+        $things->nbBricks = $add->nbBricks;
+        $things->save();
+        $things->color()->attach($add->selectColor);
+        return redirect('admin');
     }
 }

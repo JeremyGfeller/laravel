@@ -61,9 +61,15 @@
         .m-b-md {
             margin-bottom: 30px;
         }
+
+        .infomsg
+        {
+            background-color: red;
+        }
     </style>
 </head>
 <body>
+@include('infomessage')
 @yield('content')
 </body>
 </html>
